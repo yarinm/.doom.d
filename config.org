@@ -1,0 +1,123 @@
+* Configuration
+** Personal information
+#+BEGIN_SRC emacs-lisp
+(setq user-full-name "Yarin miran"
+      user-mail-address "yarin@beyond.security")
+
+#+END_SRC
+** Doom core
+*** Theme
+#+BEGIN_SRC emacs-lisp
+;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
+;; are the three important ones:
+;;
+;; + `doom-font'
+;; + `doom-variable-pitch-font'
+;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
+;;   presentations or streaming.
+;;
+;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
+;; font string. You generally only need these two:
+(setq doom-font (font-spec :family "monospace" :size 14))
+
+;; There are two ways to load a theme. Both assume the theme is installed and
+;; available. You can either set `doom-theme' or manually load a theme with the
+;; `load-theme' function. This is the default:
+(setq doom-theme 'doom-one)
+#+END_SRC
+*** Keybindings
+**** Easy window navigation
+#+BEGIN_SRC emacs-lisp
+(map!
+ (:after evil
+   :en "C-w <left>"   #'evil-window-left
+   :en "C-w <down>"   #'evil-window-down
+   :en "C-w <up>"   #'evil-window-up
+   :en "C-w <right>"   #'evil-window-right))
+#+END_SRC
+**** Open treemacs
+#+BEGIN_SRC emacs-lisp
+(map! "<f4>" #'treemacs)
+#+END_SRC
+*** Editor
+**** Display line numbers
+#+BEGIN_SRC emacs-lisp
+;; This determines the style of line numbers in effect. If set to `nil', line
+;; numbers are disabled. For relative line numbers, set this to `relative'.
+(setq display-line-numbers-type 'relative)
+#+END_SRC
+**** Multi edit
+#+BEGIN_SRC emacs-lisp
+;; Highlights all matches of the selection in the buffer.
+(define-key evil-visual-state-map "R" 'evil-multiedit-match-all)
+
+;; Match the word under cursor (i.e. make it an edit region). Consecutive presses will
+;; incrementally add the next unmatched match.
+(define-key evil-normal-state-map (kbd "M-d") 'evil-multiedit-match-and-next)
+;; Match selected region.
+(define-key evil-visual-state-map (kbd "M-d") 'evil-multiedit-match-and-next)
+;; Insert marker at point
+(define-key evil-insert-state-map (kbd "M-d") 'evil-multiedit-toggle-marker-here)
+
+;; Same as M-d but in reverse.
+(define-key evil-normal-state-map (kbd "M-D") 'evil-multiedit-match-and-prev)
+#+END_SRC** Doom modules
+
+* Modules
+** Org mode
+*** Paths
+#+BEGIN_SRC emacs-lisp
+
+(setq org-directory "~/workspace/org/")
+(setq deft-directory "~/workspace/org/")
+#+END_SRC
+*** To do keywords
+#+BEGIN_SRC emacs-lisp
+(after! org
+  (setq org-todo-keywords '((sequence "TODO(t)" "INPROG(i!)" "BLOCKED(b!)" "|" "DONE(d!)" "DISCARDED"))
+        org-todo-keyword-faces
+                          '(("TODO" :foreground "Spring green" :weight bold)
+                            ("INPROG" :foreground "Gold" :weight bold)
+                            ("BLOCKED" :foreground "Indian red" :weight bold)
+                            ("DONE" :foreground "slategrey" :weight bold :strike-through t)
+                            ("DISCARDED" :foreground "slategrey" :weight bold :strike-through t)
+                            )
+  )
+)
+
+#+END_SRC
+*** Link types
+#+BEGIN_SRC emacs-lisp
+(after! org
+  (add-to-list 'org-link-abbrev-alist '("jira" . "https://beyondnetworks.atlassian.net/browse/BE-%s"))
+  (add-to-list 'org-link-abbrev-alist '("pr" . "https://github.com/beyondnetworks/beyond/pull/%s"))
+)
+#+END_SRC
+*** Capture templates
+#+BEGIN_SRC emacs-lisp
+
+(after! org
+  (defvar my-task-file (format "%stasks.org" org-directory))
+  (defvar my-notes-file (format "%snotes.org" org-directory))
+  (setq org-capture-templates
+               '(("t" "Work related task" entry
+                 (file+headline my-task-file "Tasks") "* TODO %?" :prepend t)
+                ("p" "New project" entry
+                 (file+headline my-task-file "Projects") "* %?" :prepend t)
+                ("r" "Pull request to review" entry
+                 (file+headline my-task-file "PRs to review") "* TODO %? [[pr:%^{id}][PR %\\1]]\nCREATED: %T" :prepend t)
+                ("R" "Read later" entry
+                 (file+headline my-notes-file "Read later") "* [[%^{link}][%?]]\nCREATED: %T" :prepend t))
+  )
+)
+#+END_SRC
+
+** Evil-snipe
+disable evil snipe in mgait buffers due to a bug
+#+BEGIN_SRC emacs-lisp
+(add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
+#+END_SRC
+** LSP
+#+BEGIN_SRC emacs-lisp
+(setq lsp-auto-guess-root nil)
+#+END_SRC
