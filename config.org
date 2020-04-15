@@ -30,10 +30,10 @@
 #+BEGIN_SRC emacs-lisp
 (map!
  (:after evil
-   :en "C-w <left>"   #'evil-window-left
-   :en "C-w <down>"   #'evil-window-down
-   :en "C-w <up>"   #'evil-window-up
-   :en "C-w <right>"   #'evil-window-right))
+   :g "C-w <left>"   #'evil-window-left
+   :g "C-w <down>"   #'evil-window-down
+   :g "C-w <up>"   #'evil-window-up
+   :g "C-w <right>"   #'evil-window-right))
 #+END_SRC
 **** Open treemacs
 #+BEGIN_SRC emacs-lisp
