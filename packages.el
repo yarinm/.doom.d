@@ -48,3 +48,4 @@
 
 ;; (package! evil-snipe)
 (package! ox-clip)
+(package! git-link)
