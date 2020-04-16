@@ -29,11 +29,12 @@
 **** Easy window navigation
 #+BEGIN_SRC emacs-lisp
 (map!
- (:after evil
-   :g "C-w <left>"   #'evil-window-left
-   :g "C-w <down>"   #'evil-window-down
-   :g "C-w <up>"   #'evil-window-up
-   :g "C-w <right>"   #'evil-window-right))
+
+(:map evil-window-map
+   "<left>"   #'evil-window-left
+   "<down>"   #'evil-window-down
+   "<up>"   #'evil-window-up
+   "<right>"   #'evil-window-right))
 #+END_SRC
 **** Open treemacs
 #+BEGIN_SRC emacs-lisp
