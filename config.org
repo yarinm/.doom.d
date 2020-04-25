@@ -25,6 +25,11 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
 #+END_SRC
+*** File types
+**** YAML go templates
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.yaml\.gotmpl\\'" . yaml-mode))
+#+END_SRC
 *** Keybindings
 **** Easy window navigation
 #+BEGIN_SRC emacs-lisp
@@ -114,7 +119,7 @@
 #+END_SRC
 
 ** Evil-snipe
-disable evil snipe in mgait buffers due to a bug
+Disable evil snipe in mgait buffers due to a bug
 #+BEGIN_SRC emacs-lisp
 (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
 #+END_SRC
