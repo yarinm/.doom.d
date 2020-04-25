@@ -122,3 +122,11 @@ disable evil snipe in mgait buffers due to a bug
 #+BEGIN_SRC emacs-lisp
 (setq lsp-auto-guess-root nil)
 #+END_SRC
+** Magit
+Commit max length
+#+BEGIN_SRC emacs-lisp
+(setq git-commit-summary-max-length 160)
+#+END_SRC
+
+#+RESULTS:
+: 160
