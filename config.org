@@ -28,7 +28,9 @@
 **** YAML go templates
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.yaml\.gotmpl\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\'" . yaml-mode))
 #+END_SRC
+
 *** Keybindings
 **** Easy window navigation
 #+BEGIN_SRC emacs-lisp
@@ -42,6 +44,11 @@
 **** Open treemacs
 #+BEGIN_SRC emacs-lisp
 (map! "<f4>" #'treemacs)
+#+END_SRC
+**** Editor navigation
+#+BEGIN_SRC emacs-lisp
+(map! "<home>" #'beginning-of-line)
+(map! "<end>" #'end-of-line)
 #+END_SRC
 *** Editor
 **** Display line numbers
@@ -78,9 +85,6 @@ Same as M-d but in reverse.
 (setq org-directory "~/workspace/org/")
 (setq deft-directory org-directory)
 #+END_SRC
-
-#+RESULTS:
-: ~/workspace/org/
 
 *** To do keywords
 #+BEGIN_SRC emacs-lisp
@@ -122,7 +126,10 @@ Same as M-d but in reverse.
   )
 )
 #+END_SRC
-
+*** Property inheritence
+#+BEGIN_SRC emacs-lisp
+(setq org-use-property-inheritance t)
+#+END_SRC
 ** Evil-snipe
 Disable evil snipe in magit buffers due to a bug
 #+BEGIN_SRC emacs-lisp
@@ -135,8 +142,7 @@ Disable evil snipe in magit buffers due to a bug
 ** Magit
 Commit max length
 #+BEGIN_SRC emacs-lisp
-(setq git-commit-summary-max-length 160)
-#+END_SRC
+(after! magit
+         (setq git-commit-summary-max-length 160))
 
-#+RESULTS:
-: 160
+#+END_SRC

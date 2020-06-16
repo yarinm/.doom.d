@@ -49,3 +49,6 @@
 ;; (package! evil-snipe)
 (package! ox-clip)
 (package! git-link)
+(package! yaml-mode)
+(package! protobuf-mode)
+;; (package! ob-async)
