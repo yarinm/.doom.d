@@ -130,6 +130,14 @@ Same as M-d but in reverse.
 #+BEGIN_SRC emacs-lisp
 (setq org-use-property-inheritance t)
 #+END_SRC
+*** Mermaid
+#+BEGIN_SRC emacs-lisp
+(setq ob-mermaid-cli-path "/usr/local/bin/mmdc")
+#+END_SRC
+
+#+RESULTS:
+: /usr/local/bin/mmdc
+
 ** Evil-snipe
 Disable evil snipe in magit buffers due to a bug
 #+BEGIN_SRC emacs-lisp

@@ -51,4 +51,5 @@
 (package! git-link)
 (package! yaml-mode)
 (package! protobuf-mode)
+(package! ob-mermaid)
 ;; (package! ob-async)
